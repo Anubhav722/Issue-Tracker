@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
-	access_token = models.CharField(max_length=30)
+	access_token = models.CharField(max_length=40)
 
 	def __unicode__(self):
 		return self.user.username

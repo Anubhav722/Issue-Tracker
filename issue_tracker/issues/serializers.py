@@ -25,6 +25,7 @@ from issues.models import UserProfile, Issue
 # 			instance.save()
 # 			return instance
 
+# wherever neccessary provide 'ReadOnlyField'
 class UserProfileSerializer(serializers.ModelSerializer):
 	username = serializers.CharField(source = 'user.username')
 	email = serializers.CharField(source = 'user.email')
@@ -63,3 +64,4 @@ class IssueSerializer(serializers.HyperlinkedModelSerializer):
 	class Meta:
 		model = Issue
 		fields = ['title', 'description', 'assigned_to', 'created_by', 'status']
+		read_only_fields = ('created_by',)

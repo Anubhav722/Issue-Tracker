@@ -11,6 +11,7 @@ from rest_framework.response import Response
 
 from issues.models import UserProfile, Issue
 from issues.serializers import UserProfileSerializer, IssueSerializer
+from .permissions import IsOwner, IsCreator
 # Create your views here.
 def home(request):
 	return HttpResponse("HI there")
@@ -18,7 +19,15 @@ def home(request):
 class UserProfileViewSet(viewsets.ModelViewSet):
 	queryset = UserProfile.objects.all()
 	serializer_class = UserProfileSerializer
+	permission_classes = (IsAuthenticated, IsOwner)
 
 class IssueViewSet(viewsets.ModelViewSet):
 	queryset = Issue.objects.all()
 	serializer_class = IssueSerializer
+	permission_classes = (IsAuthenticated, IsCreator)
+
+	# specify perform_create for assigned user here
+	def perform_create(self, serializer):
+		user = UserProfile.objects.get(user=self.request.user)
+		serializer.save(created_by=user)
+		# serializer.save(created_by=self.request.user)
