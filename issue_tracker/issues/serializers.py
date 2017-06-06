@@ -31,11 +31,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
 	first_name = serializers.CharField(source = 'user.first_name')
 	last_name = serializers.CharField(source = 'user.last_name')
 	password = serializers.CharField(source = 'user.password')
-	access_token = serializers.CharField(max_length=30)
+	# access_token = serializers.CharField(max_length=30)
 
 	class Meta:
 		model = User
-		fields = ['id', 'email', 'username', 'first_name', 'last_name', 'password', 'access_token']
+		fields = ['id', 'email', 'username', 'first_name', 'last_name', 'password']
 
 	def create(self, validated_data):
 		user = User.objects.create_user(
@@ -45,9 +45,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
 			last_name = validated_data['user']['last_name'],
 			password = validated_data['user']['password'],
 			)
-		return UserProfile.objects.create(user=user, access_token=validated_data['access_token'])
+		return UserProfile.objects.create(user=user)
 
 	def update(self, instance, validated_data):
+		# import ipdb; ipdb.set_trace()
 		instance.user.email = validated_data.get('user')['email']
 		instance.user.username = validated_data.get('user')['username']
 		instance.user.first_name = validated_data.get('user')['first_name']

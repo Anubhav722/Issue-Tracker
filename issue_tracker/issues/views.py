@@ -5,6 +5,9 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from rest_framework import viewsets
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
 
 from issues.models import UserProfile, Issue
 from issues.serializers import UserProfileSerializer, IssueSerializer
