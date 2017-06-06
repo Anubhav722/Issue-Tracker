@@ -28,6 +28,7 @@ class IssueViewSet(viewsets.ModelViewSet):
 
 	# specify perform_create for assigned user here
 	def perform_create(self, serializer):
+		# import ipdb; ipdb.set_trace()
 		user = UserProfile.objects.get(user=self.request.user)
 		serializer.save(created_by=user)
 		# serializer.save(created_by=self.request.user)

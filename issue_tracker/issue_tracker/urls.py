@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 
 from rest_framework import routers
+from rest_framework.authtoken.views import obtain_auth_token
 
 from issues import views
 
@@ -27,5 +28,6 @@ router.register(r'issues', views.IssueViewSet)
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^get-token/', obtain_auth_token),
 ]
