@@ -13,12 +13,9 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
 	user = models.OneToOneField(User)
 	access_token = models.CharField(max_length=40)
-	# access_token = models.ForeignKey(Token)
 
 	def __unicode__(self):
 		return self.user.username
-
-# ACCESS_TOKEN_LENGTH = 40
 
 class Issue(models.Model):
 	title = models.CharField(max_length=254)
@@ -29,16 +26,6 @@ class Issue(models.Model):
 
 	def __unicode__(self):
 		return self.title
-
-# @receiver(post_save, sender=UserProfile)
-# def userprofile_pre_save_callback(sender, instance, *args, **kwargs):
-#     if not instance.access_token:
-#         while(1):
-#             # token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(ACCESS_TOKEN_LENGTH))
-#             token = Token.objects.create(user=instance.user)
-#             if not UserProfile.objects.filter(access_token=token).exists():
-#                 break 
-#         instance.access_token = token
 
 @receiver(post_save, sender=User)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -51,3 +38,13 @@ def create_auth_token_user_profile(sender, instance=None, created=False, **kwarg
 		token = Token.objects.last()
 		instance.access_token = token.key
 		instance.save()
+
+# @receiver(post_save, sender=UserProfile)
+# def userprofile_pre_save_callback(sender, instance, *args, **kwargs):
+#     if not instance.access_token:
+#         while(1):
+#             # token = ''.join(random.SystemRandom().choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(ACCESS_TOKEN_LENGTH))
+#             token = Token.objects.create(user=instance.user)
+#             if not UserProfile.objects.filter(access_token=token).exists():
+#                 break 
+#         instance.access_token = token
