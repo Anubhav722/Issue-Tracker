@@ -14,8 +14,6 @@ from issues.serializers import UserProfileSerializer, IssueSerializer
 from .permissions import IsOwner, IsCreator
 from issues.tasks import send_mail_after_12_minutes_for_issue_creation_task
 # Create your views here.
-def home(request):
-	return HttpResponse("HI there")
 
 def send_issue_creation_email(self):
 	queryset = self.queryset.last()
