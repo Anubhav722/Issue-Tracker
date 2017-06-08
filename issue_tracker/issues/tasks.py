@@ -10,7 +10,7 @@ logger = get_task_logger(__name__)
 
 
 @periodic_task(
-	run_every=(crontab(minute='*/2')),
+	run_every=(crontab(minute=0, hour='*/24')),
 	name = 'send_mails_after_24_hours',
 	ignore_result = True
 )
