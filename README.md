@@ -1,12 +1,27 @@
 # launchyard_task
 
+### Install all the dependencies
+```
+$ pip install -r requirements.txt
+```
+### Make sure redis server is running
+```
+$ redis-cli ping
+PONG
+```
+It should reply with PONG.
+
+### Endpoints associated
+1) /issues/
+2) /users/
+
 ### activate the virtualenv and cd into issue_tracker:
 Keep the server running ie. (./manage.py runserver)
-in one terminal window worker
+In one terminal window: Fire up Celery worker
 ```
 $ celery -A issue_tracker worker -l info
 ```
-in other terminal window
+In other terminal window: Fire up Celery task scheduler
 ```
 $ celery -A issue_tracker beat -l info
 ```
