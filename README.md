@@ -11,3 +11,7 @@ in other terminal window
 $ celery -A issue_tracker beat -l info
 ```
 ### Fetching access_token for a user:
+![alt text](https://raw.githubusercontent.com/Anubhav722/launchyard_task/master/postman_images/postman_post.png)
+
+### Fetching links via access_token:
+![alt_text](https://raw.githubusercontent.com/Anubhav722/launchyard_task/master/postman_images/postman_get.png)
